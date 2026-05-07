@@ -106,16 +106,15 @@ function Dashboard() {
     try {
 
       const response =
-        await fetch(
-          "http://localhost:5000/api/chat/history",
-          {
-
-            headers: {
-              Authorization:
-                `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
+  await fetch(
+    `${import.meta.env.VITE_API_URL}/api/chat/history`,
+    {
+      headers: {
+        Authorization:
+          `Bearer ${localStorage.getItem("token")}`,
+      },
+    }
+  );
 
       const data =
         await response.json();
@@ -230,20 +229,20 @@ function Dashboard() {
       );
 
       const response =
-        await fetch(
-          "http://localhost:5000/api/documents/upload",
-          {
+  await fetch(
+    `${import.meta.env.VITE_API_URL}/api/documents/upload`,
+    {
 
-            method: "POST",
+      method: "POST",
 
-            headers: {
-              Authorization:
-                `Bearer ${localStorage.getItem("token")}`,
-            },
+      headers: {
+        Authorization:
+          `Bearer ${localStorage.getItem("token")}`,
+      },
 
-            body: formData,
-          }
-        );
+      body: formData,
+    }
+  );
 
       const data =
         await response.json();
@@ -292,8 +291,8 @@ function Dashboard() {
       setMessages(newChat.messages);
 
       setPdfFile(
-        `http://localhost:5000/uploads/${encodeURIComponent(data.document.fileName)}`
-      );
+  `${import.meta.env.VITE_API_URL}/uploads/${encodeURIComponent(data.document.fileName)}`
+);
 
       setPageNumber(1);
 
@@ -359,31 +358,31 @@ function Dashboard() {
     try {
 
       const response =
-        await fetch(
-          "http://localhost:5000/api/chat/ask",
-          {
+  await fetch(
+    `${import.meta.env.VITE_API_URL}/api/chat/ask`,
+    {
 
-            method: "POST",
+      method: "POST",
 
-            headers: {
+      headers: {
 
-              "Content-Type":
-                "application/json",
+        "Content-Type":
+          "application/json",
 
-              Authorization:
-                `Bearer ${localStorage.getItem("token")}`,
-            },
+        Authorization:
+          `Bearer ${localStorage.getItem("token")}`,
+      },
 
-            body: JSON.stringify({
+      body: JSON.stringify({
 
-              question:
-                currentMessage,
+        question:
+          currentMessage,
 
-              documentId:
-                selectedChat.id,
-            }),
-          }
-        );
+        documentId:
+          selectedChat.id,
+      }),
+    }
+  );
 
       const data =
         await response.json();
@@ -436,20 +435,20 @@ function Dashboard() {
 
   const deleteChat = async (chatId) => {
 
-    try {
+  try {
 
-      await fetch(
-        `http://localhost:5000/api/chat/${chatId}`,
-        {
+    await fetch(
+      `${import.meta.env.VITE_API_URL}/api/chat/${chatId}`,
+      {
 
-          method: "DELETE",
+        method: "DELETE",
 
-          headers: {
-            Authorization:
-              `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+        headers: {
+          Authorization:
+            `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
 
       setRecentChats((prev) =>
         prev.filter(
@@ -597,8 +596,8 @@ function Dashboard() {
                         setMessages(chat.messages);
 
                         setPdfFile(
-                          `http://localhost:5000/uploads/${encodeURIComponent(chat.name)}`
-                        );
+  `${import.meta.env.VITE_API_URL}/uploads/${encodeURIComponent(chat.name)}`
+);
 
                         setPageNumber(1);
                       }}
